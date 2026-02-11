@@ -1,4 +1,5 @@
 const request = require("supertest");
+const mongoose = require("mongoose");
 const app = require("../../app");
 const { startMongo, stopMongo } = require("./mongoContainer");
 
@@ -9,12 +10,12 @@ beforeAll(async () => {
 afterAll(async () => {
   await stopMongo();
 });
-afterEach(async () => {
-    const collections = mongoose.connection.collections;
-    for (const key in collections) {
-      await collections[key].deleteMany({});
-    }
-  });
+// afterEach(async () => {
+//     const collections = mongoose.connection.collections;
+//     for (const key in collections) {
+//       await collections[key].deleteMany({});
+//     }
+//   });
 
 test("POST /todos creates a todo (201)", async () => {
   const res = await request(app)
